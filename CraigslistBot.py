@@ -15,6 +15,8 @@ from slack import WebClient
 import asyncio
 import nest_asyncio
 from slack_creds import creds
+from flask import Flask
+app = Flask(__name__)
 
 def get_posts(posts_ALL):
     # Get posts via python-craigslist
@@ -128,4 +130,7 @@ def main():
     # Send messages
     send_messages(SLACK_CHANNEL, text_posts, client)
 
-main()
+@app.route('/synth_bot')
+def run():
+    main()
+    return "Done"

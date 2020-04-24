@@ -3,3 +3,4 @@ slackclient
 python-craigslist
 pandas
 nest_asyncio
+flask
