@@ -134,3 +134,6 @@ def main():
 def run():
     main()
     return "Done"
+
+if __name__ == "__main__":
+    app.run()
