@@ -23,7 +23,9 @@ def get_posts(posts_ALL):
     results = []
     for location, posts in posts_ALL.items():
         for result in posts.get_results(sort_by='newest', include_details=True):
-            result["where"] += f" - {location}"
+            loc = result["where"] if result["where"] != None else ""
+            loc += f" - {location}"
+            result["where"] = loc
             results.append(result)
     df = pd.DataFrame(results)
 
@@ -99,8 +101,6 @@ def send_messages(SLACK_CHANNEL, text_posts, client):
             
 def main():
     # Initialize bot
-    nest_asyncio.apply()
-
     SLACK_CHANNEL = "#synth-bot"
     SLACK_CHANNEL_ID = "C012FHZE1NW"
 
