@@ -97,10 +97,10 @@ def send_messages(SLACK_CHANNEL, text_posts, client):
             
 def main():
     # Initialize bot
-    SLACK_CHANNEL = "#synth-bot"
-    SLACK_CHANNEL_ID = "C012FHZE1NW"
+    SLACK_CHANNEL = "#synth-bot-v2"
+    SLACK_CHANNEL_ID = "C013RL4N1EJ"
 
-    client = WebClient(token=creds["token"])
+    client = WebClient(token=creds["bot-token"])
 
     # Create search queries
     posts_SD = CraigslistForSale(site="sandiego", filters={'query': "eurorack"})
