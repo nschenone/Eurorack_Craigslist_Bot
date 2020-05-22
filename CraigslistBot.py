@@ -23,8 +23,8 @@ def get_posts(posts_ALL):
     results = []
     for location, posts in posts_ALL.items():
         for result in posts.get_results(sort_by='newest', include_details=True):
-            loc = result["where"] if result["where"] != None else ""
-            loc += f" - {location}"
+            loc = f"{result['where']} - " if result["where"] != None else ""
+            loc += location
             result["where"] = loc
             results.append(result)
     df = pd.DataFrame(results)
@@ -63,14 +63,10 @@ def compile_blacklist(SLACK_CHANNEL_ID, client):
     response = client.conversations_history(channel=SLACK_CHANNEL_ID)
     seen_urls = []
     for message in response["messages"]:
-        if message["subtype"] == 'bot_message':
-            try:
-                if message["reactions"]:
-                    text = message["text"]
-                    url = "https://" + text.split(".html")[-2].split("https://")[-1] + ".html"
-                    seen_urls.append(url)
-            except:
-                pass
+        if "reactions" in message:
+            text = message["text"]
+            url = "https://" + text.split(".html")[-2].split("https://")[-1] + ".html"
+            seen_urls.append(url)
     # Write to file
     open('seen_urls.txt', 'w').close()
     with open("seen_urls.txt", "w+") as f:
