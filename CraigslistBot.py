@@ -67,19 +67,8 @@ def compile_blacklist(SLACK_CHANNEL_ID, client):
             text = message["text"]
             url = "https://" + text.split(".html")[-2].split("https://")[-1] + ".html"
             seen_urls.append(url)
-    # Write to file
-    open('seen_urls.txt', 'w').close()
-    with open("seen_urls.txt", "w+") as f:
-        for url in seen_urls:
-            f.write(url + '\n')
-            
-    # Compile list of urls not to send into list
-    blacklist_urls = []
-    with open("seen_urls.txt") as f:
-        for url in f:
-            blacklist_urls.append(url.split("\n")[0])
-            
-    return blacklist_urls
+
+    return seen_urls
 
 def send_messages(SLACK_CHANNEL, text_posts, client):
     for text in text_posts:
