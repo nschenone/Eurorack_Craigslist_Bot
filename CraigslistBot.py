@@ -31,13 +31,13 @@ def get_posts(posts_ALL):
 
     # Clean data
     for i, row in df.iterrows():
-        # Convert last_updated into relative time value in hours
+        # Convert last_updated into relative time value in days
         time_posted = pd.to_datetime(row["last_updated"], infer_datetime_format=True)  
         time_now = pd.to_datetime(datetime.now(), infer_datetime_format=True)
         time_diff = pd.Timedelta(time_now - time_posted).total_seconds() / 3600 / 24
         df.at[i,'updated'] = round(time_diff, 1)
 
-        # Convert created into relative time value in hours
+        # Convert created into relative time value in days
         time_posted = pd.to_datetime(row["created"], infer_datetime_format=True)  
         time_now = pd.to_datetime(datetime.now(), infer_datetime_format=True)
         time_diff = pd.Timedelta(time_now - time_posted).total_seconds() / 3600 / 24
